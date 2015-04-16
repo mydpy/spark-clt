@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Apache Spark CapTech Charlotte DMBI Meeting</title>
+		<title>Introduction to Apache Spark</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Hakim El Hattab">
@@ -43,161 +43,180 @@
 			<div class="slides">
 				<section>
 					<img src="img/spark-logo.png" style="width: 600px; border: none; box-shadow: none;">
-					<h3>Big Data in Real Time</h3>
+					<h2>Introduction to Apache Spark</h2>
 					<p>
-						<small>Presentation by <a href="http://captechconsulting.com">Myles Baker</a> / <a href="http://twitter.com/mydpy">@mydpy</a></small>
+						<small>Presented by <a href="http://captechconsulting.com">Myles Baker</a> / <a href="http://twitter.com/mydpy">@mydpy</a></small>
 					</p>
 				</section>
 
 				<section>
-					<img src="img/bigdata-ven.png" style="width: 600px; border: none; box-shadow: none;">
-				</section>
+					<section>
+						<h2>What is Spark?</h2>
+					</section>
 
+					<section>
+                        <h3><a href="https://spark.apache.org">Apache Spark</a> is a cluster computing platform designed to be <i>fast</i> and <i>general-purpose</i></h3>
+                        
+                        <ul>
+						<li><i>In-memory</i> computing capabilities deliver speed</li>
+                        <li>General execution model supports many diverse use cases</li>
+                        <li>Native APIs in Java, Scala, Python</li>
+                        <li>Supports batch and real-time analysis</li>
+                        </ul>
+					</section>
+                    <section>
+                        <img src="img/logo-java.png" style="width: 400px; border: none; box-shadow: none;">
+                        <img src="img/scala-logo.png" style="width: 400px; border: none; box-shadow: none;">
+                        <img src="img/python-logo-master.png" style="width: 400px; border: none; box-shadow: none;">
+                    </section>
+					<section>
+						<img src="img/spark-stack.png" style="width: 600px; border: none; box-shadow: none;">
+					</section>
+				</section>
 				<section>
+                    <section>
+                        <h2>Why Spark?</h2>
+                    </section>
+                    <section>
+                        <h3>Spark is quickly becoming popular</h3>
+                        <iframe scrolling="no" style="border:none;" width="600" height="400" src="http://www.google.com/trends/fetchComponent?hl=en-US&q=apache+spark,+apache+hadoop&date=1/2010+65m&cmpt=q&tz&tz&content=1&cid=TIMESERIES_GRAPH_AVERAGES_CHART&export=5&w=600&h=400"></iframe>
+                    </section>
 					<section>
 						<img src="img/hadoop-logo.jpeg" style="width: 600px; border: none; box-shadow: none;">
 						<img src="img/map-reduce.png" style="width: 900px; border: none; box-shadow: none;">
 					</section>
 					<section>
-						<h2>This paradigm unlocks intelligence on your data not previously possible.</h2>
+						<h3>This paradigm unlocks intelligence on your data not previously possible</h3>
+                        <h4>...but is designed for batch applications. What about real-time?</h4>
 					</section>
 					<section>
-						<h3>But by definition is run in batch.</h3>
-						<img src="img/resourcemanager-ui-hd2.png" style="width: 900px; border: none; box-shadow: none;">
+						<h3>...that requires special tools and imposes resource demands</h3>
+						<img src="img/spark-vs-hadoop.png" style="width: 800px; border: none; box-shadow: none;">
 					</section>
-					<section>
-						<h3>Is that really a solution for velocity?</h3>
-						<img src="img/bigdata-ven.png" style="width: 400px; border: none; box-shadow: none;">
-					</section>
-					<section>
-						<h2>Probably not.</h2>
-						<img src="img/not-bigdata.png" style="width: 400px; border: none; box-shadow: none;">
-					</section>
+                    <section>
+                        <h3>How fast is Spark?</h3>
+                        <ul>
+                            <li>3x as fast</li>
+                            <li>10x fewer machines</li>
+                        </ul>
+                        <img src="img/spark-100tb.png" style="width: 800px; border: none; box-shadow: none;">
+                    </section>
+                    <section>
+                        <h3>...but may not replace Hadoop yet</h3>
+                        <ul>
+                            <li>Hadoop may be better if data spills into memory</li>
+                            <li>Spark staffing can be more costly than Hadoop</li>
+                            <li>Spark security is in its infancy</li>
+                        </ul>
+                    </section>
 				</section>
 
-				<section>
+                <section>
+                    <section>
+                        <h2>How does Spark work?</h2>
+                    </section>
 					<section>
-						<h2>Lambda Architecture</h2>
-						<img src="img/lambda-arch.png" style="width: 900px; border: none; box-shadow: none;">
+                        <h3>A new abstraction: <a href="https://www.cs.berkeley.edu/~matei/papers/2012/nsdi_spark.pdf">Resilient, Distributed Datasets</a></h3>
+                        <img src="img/rdds-explained.png" style="width: 800px; border: none; box-shadow: none;">
+                        <p style="font-size:50%"><b>Resilient Distributed Dataset:</b> An abstraction that enables efficient data reuse in distributed processing environments</p>
 					</section>
 					<section>
-						<img src="img/spark-architecture.jpg" style="width: 900px; border: none; box-shadow: none;">
-					</section>
-					<section>
-						<h3>Record breaking</h3>
+                        <h2>RDD focal points:</h2>
 						<ul>
-							<li>3x as fast</li>
-							<li>10x fewer machines</li>
-						</ul>
-						<img src="img/spark-100tb.png" style="width: 800px; border: none; box-shadow: none;">
+                            <li>Fault-tolerant, parallel data structure</li>
+                            <li>For interactive, iterative operations</li>
+                            <li>Immutable</li>
+                            <li>Transformations are logged and performed <i>lazily</i></li>
+                            <li>User-controlled persistence and partitioning</li>
+                        </ul>
 					</section>
 					<section>
-						<img src="img/spark-ecosystem.png" style="width: 800px; border: none; box-shadow: none;">
+                        <h2>Spark's implementation of RDDs:</h2>
+                        <ul>
+                            <li>Language-intergrated interface (functions inline, etc.)</li>
+                            <li>Runs inside a JVM to easily interact with Hadoop filesystem</li>
+                            <li>Statically typed for performance</li>
+                        </ul>
 					</section>
-					<section>
-						<img src="img/logo-java.png" style="width: 400px; border: none; box-shadow: none;">
-						<img src="img/scala-logo.png" style="width: 400px; border: none; box-shadow: none;">
-						<img src="img/python-logo-master.png" style="width: 400px; border: none; box-shadow: none;">
-					</section>
-				</section>
-
-
-
-				<section>
-					<section>
-						<img src="img/spark-logo.png" style="width: 400px; border: none; box-shadow: none;">
-						<br/>
-						<img src="img/scala-logo.png" style="width: 400px; border: none; box-shadow: none;">
-					</section>
-					<section>
-						<h2>Spark is written in Scala</h2>
-					</section>
-					<section>
-						<h2>Parallel Processing</h2>
-						<br/>
-						<p>data.par.map(_ * 2)</p>
-					</section>
-					<section>
-						<h2>Immutability</h2>
-						<br/>
-						<p>val cannotChange = List(1,2,3,4,5)</p>
-					</section>
-					<section>
-						<h2>Still JVM</h2>
-					</section>
-					<section>
-						<h2>Type Inference</h2>
-						<br/>
-						<p>val str = "I am definitely a String"</p>
-					</section>
-					<section>
-						<h2>Functional</h2>
-						<pre><code data-trim contenteditable>
-public List&lt;Product&gt; getProducts(List&lt;Order&gt; orders) {
-
-    List&lt;Product&gt; products = new ArrayList&lt;Product&gt;();
-
-    for (Order order : orders) {
-        products.addAll(order.getProducts());
-    }
-
-    return products;
-}
-						</code></pre>
-						<h3>Vs.</h3>
-					<pre><code data-trim contenteditable>
-&nbsp;
-  def products = orders.flatMap(o => o.products)
-&nbsp;
-					</code></pre>
-					</section>
-					<section>
-						<h3>Spark operations look<br/>awfully familiar...</h3>
-						<ul>
-							<li>map( { .. } )</li>
-							<li>filter( { .. } )</li>
-							<li>flatMap( { .. } )</li>
-							<li>reduceByKey( { .. } )</li>
-							<li>reduce( { .. } )</li>
-							<li>foreach( { .. } )</li>
-						</ul>
-					</section>
-				</section>
-
-				<section>
-					<h2>Java 7</h2>
-					<pre><code data-trim contenteditable>
-JavaRDD&lt;String&gt; distFile = sc.textFile("README.md");
-
-// Map each line to multiple word
-JavaRDD&lt;String&gt; words = distFile.flatMap(
-
-new FlatMapFunction&lt;String, String&gt;() {
-
-	public Iterable&lt;String&gt; call(String line) {
-		return Arrays.asList(line.split(" "));
-	}
-});
-					</code></pre>
-					<h2>Java 8</h2>
-					<pre><code data-trim contenteditable>
-JavaRDD&lt;String&gt; distFile = sc.textFile("README.md");
-
-JavaRDD&lt;String&gt; words =
-	distFile.flatMap(line -> Arrays.asList(line.split(" ")));
-					</code></pre>
-				</section>
+                </section>
+                
 
 				<section>
 					<h2>Questions?</h2>
 				</section>
 
 				<section>
-					<h2>Ok let's go do something.</h2>
-					<br/>
-					<p>http://spark.apache.org/docs/1.2.1/quick-start.html</p>
-					<p>https://github.com/apache/spark</p>
+                    <section>
+                        <h2>Demo</h2>
+                    </section>
+                    <section>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/dJQ5lV5Tldw" frameborder="0" allowfullscreen></iframe>
+                    </section>
 				</section>
+                
+                <section>
+                    <section>
+                        <h2>Appendix: Scala</h2>
+                        <p style="font-size:50%">Content courtesy of David Der / <a href="https://twitter.com/davidder">@davidder</a></p>
+                    </section>
+                    <section>
+                        <h2>Functional</h2>
+                        <pre><code data-trim contenteditable>
+public List&lt;Product&gt; getProducts(List&lt;Order&gt; orders) {
+
+    List&lt;Product&gt; products = new ArrayList&lt;Product&gt;();
+
+    for (Order order : orders) {
+        products.addAll(order.getProducts());
+        }
+
+    return products;
+}
+                        </code></pre>
+                        <h3>Vs.</h3>
+                        <pre><code data-trim contenteditable>
+&nbsp;
+def products = orders.flatMap(o => o.products)
+&nbsp;
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Spark operations look<br/>awfully familiar...</h3>
+                        <ul>
+                            <li>map( { .. } )</li>
+                            <li>filter( { .. } )</li>
+                            <li>flatMap( { .. } )</li>
+                            <li>reduceByKey( { .. } )</li>
+                            <li>reduce( { .. } )</li>
+                            <li>foreach( { .. } )</li>
+                        </ul>
+                    </section>
+                    
+                    
+                    <section>
+                        <h2>Java 7</h2>
+                        <pre><code data-trim contenteditable>
+JavaRDD&lt;String&gt; distFile = sc.textFile("README.md");
+
+// Map each line to multiple word
+JavaRDD&lt;String&gt; words = distFile.flatMap(
+
+    new FlatMapFunction&lt;String, String&gt;() {
+
+        public Iterable&lt;String&gt; call(String line) {
+            return Arrays.asList(line.split(" "));
+        }
+});
+                        </code></pre>
+                        <h2>Java 8</h2>
+                        <pre><code data-trim contenteditable>
+JavaRDD&lt;String&gt; distFile = sc.textFile("README.md");
+
+JavaRDD&lt;String&gt; words =
+distFile.flatMap(line -> Arrays.asList(line.split(" ")));
+                        </code></pre>
+                    </section>
+                </section>
 
 			</div>
 
