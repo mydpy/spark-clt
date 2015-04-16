@@ -270,9 +270,9 @@ silverstein: Array[String] = Array(
                         <h3>Transforming an RDD</h3>
                         <pre><code data-trim contenteditable>
 val BoaConstrictor = rdd.filter(line => line.contains("Boa"))
-BoaConstrictor.collect
                         </code></pre>
                         <pre><code data-trim contenteditable>
+BoaConstrictor.collect
 res39: Array[String] = Array(
     Im being swallered by a Boa Constrictor, a Boa Constrictor, a Boa Constrictor,
     Im being swallered by a Boa Constrictor
@@ -285,9 +285,9 @@ res39: Array[String] = Array(
                         <pre><code data-trim contenteditable>
 val words = rdd.flatMap(line => line.split(" "))
 val counts = words.map(word => (word,1)).reduceByKey{case (x,y) => x+y}
-counts.collect
                         </code></pre>
                         <pre><code data-trim contenteditable>
+counts.collect
 res40: Array[(String, Int)] = Array(
     (don't,1), (pest,,1), (fiddle,,1), (one,1), (bit!,1), ((BURP),1),
     (toe.,1), (Boa,4), (Constrictor,,1), (my,6), (what,1), (dread,,1),
@@ -302,17 +302,70 @@ res40: Array[(String, Int)] = Array(
                         <h3>Analysis using RDDs</h3>
                         <pre><code data-trim contenteditable>
 val Boa = counts.filter(pair => pair._1.equals("Boa"))
-Boa.collect
                         </code></pre>
                         <pre><code data-trim contenteditable>
+Boa.collect
 res41: Array[(String, Int)] = Array((Boa,4))
                         </code></pre>
                     </section>
 
+
                     <section>
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/dJQ5lV5Tldw" frameborder="0" allowfullscreen></iframe>
+                    <h3>Java Example using Spark-submit</h3>
+                        <pre><code data-trim contenteditable>
+import java.util.Arrays;
+import java.util.List;
+import java.lang.Iterable;
+import scala.Tuple2;
+import org.apache.commons.lang.StringUtils;
+import org.apache.spark.api.java.*
+import org.apache.spark.api.java.function.*
+
+public class WordCount {
+  public static void main(String[] args) throws Exception {
+    String master = "local";
+    JavaSparkContext sc = new JavaSparkContext(
+      master, "wordcount", System.getenv("SPARK_HOME"), System.getenv("JARS"));
+    JavaRDD&#60;String> rdd = sc.textFile("spark-input/boa-constrictor");
+    JavaPairRDD&#60;String, Integer> counts = rdd.flatMap(
+      new FlatMapFunction&#60;String, String>() {
+        public Iterable&#60;String> call(String x) {
+          return Arrays.asList(x.split(" "));
+        }}).mapToPair(new PairFunction&#60;String, String, Integer>(){
+          public Tuple2&#60;String, Integer> call(String x){
+            return new Tuple2(x, 1);
+          }}).reduceByKey(new Function2&#60;Integer, Integer, Integer>(){
+              public Integer call(Integer x, Integer y){ return x+y;}});
+  counts.saveAsTextFile("output/boa-constrictor");
+  }
+}
+                        </code></pre>
+                        <pre><code data-trim contenteditable>
+>spark-submit --class WordCount --master spark://quickstart.cloudera:7077 \
+>spark-clt-demo.jar
+                        </code></pre>
+                    </section>
+
+
+                    <section>
+                        <h2>Questions?</h2>
                     </section>
 				</section>
+                
+                <section>
+                    <section>
+                        <h2>Appendix: How do I learn Spark?</h2>
+                        <ul>
+                            <li><a href="http://shop.oreilly.com/product/0636920028512.do">Learning Spark</a></li>
+                            <li>Spark Summit 2014 Tutorial Videos</li>
+                    </section>
+                    <section>
+                        <iframe width="800" height="500" src="https://www.youtube.com/embed/VWeWViFCzzg?list=PLTPXxbhUt-YWSgAUhrnkyphnh0oKIT8-j" frameborder="0" allowfullscreen></iframe>
+                    </section>
+                    <section>
+                        <iframe width="800" height="500" src="https://www.youtube.com/embed/HG2Yd-3r4-M" frameborder="0" allowfullscreen></iframe>
+                    </section>
+                </section>
                 
                 <section>
                     <section>
